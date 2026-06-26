@@ -19,7 +19,7 @@ platforms:
   amd64:
   arm64:
 
-license: MIT
+license: Apache-2
 contact: https://github.com/canonical/ast-grep-snap/issues/new
 issues: https://github.com/canonical/ast-grep-snap/issues/new
 source-code: https://github.com/ast-grep/ast-grep
