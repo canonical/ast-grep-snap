@@ -1,0 +1,40 @@
+# Copyright 2026 Canonical Ltd.
+# See LICENSE-snap file for licensing details.
+name: Test ast-grep
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    name: Build snap
+    uses: canonical/data-platform-workflows/.github/workflows/build_snap.yaml@v50.0.0
+
+  test:
+    name: Test Snap
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v6
+        with:
+          pattern: ${{ needs.build.outputs.artifact-prefix }}-*
+          merge-multiple: true
+
+      - name: Install snap file
+        run: |
+          sudo snap install --dangerous ast-grep*.snap
+
+      - name: Run valkey cli
+        run: |
+          ast-grep --version
+
+      - name: Run valkey cli
+        run: |
+          ast-grep.sg --version
