@@ -1,0 +1,49 @@
+name: ast-grep # you probably want to 'snapcraft register <name>'
+title: SG Ast-Grep
+base: core24 # the base snap is the execution environment for this snap
+adopt-info: ast-grep
+summary: AST based tool to search code by pattern code. # 79 char long summary
+description: |
+  ast-grep is an abstract syntax tree based tool to search code by pattern code. Think of it as your old-friend `grep`, but matching AST nodes instead of text.
+  You can write patterns as if you are writing ordinary code. It will match all code that has the same syntactical structure.
+  You can use `$` sign + upper case letters as a wildcard, e.g. `$MATCH`, to match any single AST node. Think of it as regular expression dot `.`, except it is not textual.
+
+  Try the online playground for a taste! https://ast-grep.github.io/playground.html
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+compression: lzo
+
+
+platforms:
+  amd64:
+  arm64:
+
+license: MIT
+contact: https://github.com/canonical/ast-grep-snap/issues/new
+issues: https://github.com/canonical/ast-grep-snap/issues/new
+source-code: https://github.com/ast-grep/ast-grep
+website: https://ast-grep.github.io/
+
+parts:
+  ast-grep:
+    plugin: rust
+    source: .
+    prime:
+      - ast-grep
+    override-prime: |
+      craftctl default
+      bin_version="$($CRAFT_PRIME/ast-grep --version | cut -d " " -f2)"
+      craftctl set version="$bin_version"
+
+apps:
+  ast-grep:
+    command: ast-grep
+    plugs:
+      - home
+      - removable-media
+  sg:
+    command: ast-grep
+    plugs:
+      - home
+      - removable-media
