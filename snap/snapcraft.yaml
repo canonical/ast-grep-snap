@@ -41,9 +41,7 @@ apps:
     command: ast-grep
     plugs:
       - home
-      - removable-media
   sg:
     command: ast-grep
     plugs:
       - home
-      - removable-media
