@@ -22,7 +22,7 @@ platforms:
 license: Apache-2.0
 contact: https://github.com/canonical/ast-grep-snap/issues/new
 issues: https://github.com/canonical/ast-grep-snap/issues/new
-source-code: https://github.com/ast-grep/ast-grep
+source-code: https://github.com/canonical/ast-grep-snap
 website: https://ast-grep.github.io/
 
 parts:
